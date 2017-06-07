@@ -1,0 +1,10 @@
+"dependance":{
+  "serverPool":{
+    "host":"stratum.slushpool.com",
+    "port":3333
+  },
+  "Worker":{
+    "username":"SebastienLauret.BicraveBoy",
+    "password":"123695sl"
+  }
+}
