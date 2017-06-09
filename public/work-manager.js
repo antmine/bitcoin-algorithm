@@ -11,11 +11,13 @@ var start = null;
 var id = 1;
 // use this in case we can directly connect to a given pool
 // var _url = 'http://' + g_user + ':' + g_password + '@' + g_url + ':' + g_port;
-var _url = '/work';
+var hostStratum = 'http://127.0.0.1:5000';
+var hostFile = 'http://127.0.0.1:3000';
+var urlWork = hostStratum+'/work';
 
 function readScript(n) {
-    var xhr = new XMLHttpRequest();(Math.round((old + hashes_per_second)
-    xhr.open("GET", n, f(Math.round((old + hashes_per_second) alse);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", n, false);
     xhr.send(null);
     var x = xhr.responseText;
     return x;
@@ -38,8 +40,9 @@ function onSuccess(jsonresp) {
     id = Number(jsonresp.id) + 1;
     var response = jsonresp.result;
     var data = JSON.stringify(response);
-    $('#info').val(data);
-
+//    $('#info').val(data);
+console.log(data);
+    eventEmiter.trigger("scriptData", [response]);
     var job = {};
     job.run = true;
     job.work = data;
@@ -54,7 +57,7 @@ function onSuccess(jsonresp) {
     job.nonce = Math.floor(Math.random() * 0xFFFFFFFF);
     job.hexdata = response.data;
 
-    worker = new Worker("/public/miner.js");
+    worker = new Worker(hostFile + "/public/miner.js");
     worker.onmessage = onWorkerMessage;
     worker.onerror = onWorkerError;
     worker.postMessage(job);
@@ -63,7 +66,7 @@ function onSuccess(jsonresp) {
 
 function begin_mining() {
   start = (new Date()).getTime();
-  $.get(_url, onSuccess, "text json");
+  $.get(urlWork, onSuccess, "text json");
 }
 
 function onWorkerMessage(event) {
@@ -71,20 +74,28 @@ function onWorkerMessage(event) {
     if (job.print) console.log('worker:' + job.print);
     if (job.golden_ticket) {
         if (job.nonce) console.log("nonce: " + job.nonce);
-        $('#golden-ticket').val(job.golden_ticket);
-        $.get("/submit?nonce=" + job.nonce);
+        eventEmiter.trigger("scriptMessage", [{golden_ticket: job.golden_ticket}]);
+//      $('#golden-ticket').val(job.golden_ticket);
+        $.get(hostStratum + "/submit?nonce=" + job.nonce);
         if (repeat_to) {
             window.clearTimeout(repeat_to);
         }
     }
-    if (!job.total_hashes) job.total_hashes = 1;
+    if (!job.total_hashes)
+      job.total_hashes = 1;
     var total_time = ((new Date().getTime()) - start) / 1000;
     var total_hashed = job.total_hashes + Number($('#total-hashes').val());
     var hashes_per_second = total_hashed / (total_time + 1);
-    $('#total-hashes').val(total_hashed);
+    /*$('#total-hashes').val(total_hashed);
     var old = Number($('#hashes-per-second').val());
-    if (old == "NaN" || old == "Infinity") old = 0;
+    if (old == "NaN" || old == "Infinity")
+      old = 0;
     $('#hashes-per-second').val(Math.round((old + hashes_per_second) / 2));
+    */
+    eventEmiter.trigger("scriptMessage", [{
+      'total_hashed': total_hashed,
+      'hashes_per_second': hashes_per_second
+    }]);
 }
 
 function onWorkerError(event) {
