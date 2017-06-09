@@ -15,7 +15,12 @@ var createHash = require('sha.js');
 var sha256 = createHash('sha256');
 var ba = require('binascii');
 
+app.use(function (req, res, next) {
 
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
 app.listen(port);
 app.use('/public', express.static(__dirname + '/public'));
 
