@@ -69,6 +69,8 @@ function begin_mining() {
   $.get(urlWork, onSuccess, "text json");
 }
 
+
+var total_hashed = 0;
 function onWorkerMessage(event) {
     var job = event.data;
     if (job.print) console.log('worker:' + job.print);
@@ -84,7 +86,7 @@ function onWorkerMessage(event) {
     if (!job.total_hashes)
       job.total_hashes = 1;
     var total_time = ((new Date().getTime()) - start) / 1000;
-    var total_hashed = job.total_hashes + Number($('#total-hashes').val());
+    total_hashed += job.total_hashes;
     var hashes_per_second = total_hashed / (total_time + 1);
     /*$('#total-hashes').val(total_hashed);
     var old = Number($('#hashes-per-second').val());
