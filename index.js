@@ -65,19 +65,23 @@ client.on('mining', function(data, socket, type) {
         var prevhash = data.params[1];
         var ntime = data.params[7];
         var nbits = data.params[6];
-        var header = version + prevhash + merkle_root + ntime + nbits + '00000000' + '000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000';
+        var header = version + prevhash + merkle_root + ntime + nbits + '00000001' + '000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000';
         curr_block.data = header;
-        curr_block.target = "00000000ffff0000000000000000000000000000000000000000000000000000";
+        var targetBase= "0x0000ffff00000000000000000000000000000000000000000000000000000000";
+        curr_block.target = eval("("+targetBase+"/"+curr_block.difficulty+").toString(16)");
+        console.log(curr_block.target);
         console.log("computed block!");
-    }
-    else if (data.result) {
+    } else if (data.method === "set_difficulty") {
+        curr_block.difficulty = data.params[0];
+        console.log("difficulty : " + curr_block.difficulty);
+    } else if (data.result) {
         curr_block.extranonce1 = data.result[1];
         curr_block.extranonce2_size = data.result[2];
         console.log('got subscription data');
     }
     if (!socket.authorized) {
         console.log('Asking for authorization');
-        socket.stratumAuthorize("", '');
+        socket.stratumAuthorize("SebastienLauret.toto", '');
     }
     else {
         console.log("authorized");
