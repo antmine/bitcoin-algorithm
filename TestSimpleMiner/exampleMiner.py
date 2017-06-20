@@ -16,10 +16,12 @@ nonce = 856192328
 while nonce < 0x100000000:
     header = ( struct.pack("<L", ver) + prev_block.decode('hex')[::-1] +
           mrkl_root.decode('hex')[::-1] + struct.pack("<LLL", time_, bits, nonce))
-    print "header \n "+ header.encode('hex') + "\n"
-    hash = hashlib.sha256(hashlib.sha256(header).digest()).digest()
-    print nonce, hash[::-1].encode('hex')
-    if hash[::-1] < target_str:
+    print len(header)
+    hash1 = hashlib.sha256(header).digest()
+    print "hash1 = ", hash1[::-1].encode('hex');
+    hash2 = hashlib.sha256(hash1).digest()
+    print nonce, hash2[::-1].encode('hex')
+    if hash2[::-1] < target_str:
         print 'success'
         break
     nonce += 1
