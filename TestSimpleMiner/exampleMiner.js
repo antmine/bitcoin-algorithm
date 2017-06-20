@@ -75,7 +75,13 @@ function tabtostr(tab){
   console.log(res.length);
   return res;
 }
-
+function decode(str){
+  var res = "";
+  for (var i = 0; i < str.length; i+=2) {
+    res += String.fromCharCode(parseInt(str[i]+str[i+1], 16));
+  }
+  return  res;
+}
 //function makeHash()
 
 function scanhash(job, nounce) {
@@ -95,11 +101,11 @@ function scanhash(job, nounce) {
   console.log(job.header);
   console.log("-"+tabtostr(job.header)+"-");
   var h1 = sha256(tabtostr(job.header));
-  h1 = returnString(h1);
+  //h1 = returnString(h1);
   console.log("hash1 : " + h1);
   var tmp = stringToInt(h1);
-
-  h2 = sha256(tabtostr(tmp));
+  console.log(decode(h1).length);
+  h2 = sha256(decode(h1));
   console.log("hash2 : " + h2);
 }
 
