@@ -43,12 +43,16 @@ function onSuccess(jsonresp) {
 //    $('#info').val(data);
 console.log(data);
     eventEmiter.trigger("scriptData", [response]);
+    var gl = false;
     var job = {};
     job.run = true;
     job.work = data;
     //job.midstate = derMiner.Util.fromPoolString(response.midstate, gl);
-    //job.half = derMiner.Util.fromPoolString(response.data.substr(0, 128), gl);
+    console.log("Base : \n" + response.data);
+    job.half = derMiner.Util.fromPoolString(response.data.substr(0, 128), gl);
     job.data = derMiner.Util.fromPoolString(response.data.substr(128, 256), gl);
+    console.log("half : \n" + job.half);
+    console.log("data : \n" + job.data);
     //job.hash1 = derMiner.Util.fromPoolString(response.hash1, gl);
     job.target = derMiner.Util.fromPoolString(response.target, gl);
 //    var t = derMiner.Util.ToUInt32(derMiner.Util.fromPoolString(response.target, false)[6]);
