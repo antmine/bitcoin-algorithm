@@ -1,4 +1,4 @@
-if (typeof(derMiner) == 'undefined')
+if (typeof(Util) == 'undefined')
   var Util = {};
 
 Util = {
