@@ -1,6 +1,6 @@
 var sha256 = require("sha256");
 var currBlock = new CurrBlock();
-/*
+
 var job = {
   version : "00000002",
   prev_block : "000000000000000117c80378b8da0e33559b5997f2ad55e2f7d18ec1975b9717",
@@ -12,7 +12,7 @@ var job = {
 job.mrkl_root = Util.returnString(job.mrkl_root);
 
 job.prev_block = Util.returnString(job.prev_block);
-console.log(job.prev_block);*/
+console.log(job.prev_block);
 /// JSon example stratum
 var res1 = JSON.parse('{"id":1,"result":[[["mining.set_difficulty","b4b6693b72a50c7116db18d6497cac52"],["mining.notify","ae6812eb4cd7735a302a8a9dd95cf71f"]],"4bc6af58",4],"error":null}');
 var res2 = JSON.parse('{"id":null,"params":[16],"method":"mining.set_difficulty"}');

@@ -35,11 +35,12 @@ function CurrBlock() {
                         + coinb2;
   }
   this.makeMerkelRoot = function(tabMerkelBranches) {
-      var mrklRoot = this.sha256(this.sha256(this.ba.unhexlify(this.coinBase.data)));
+      var mrklRoot = this.sha256(Util.decode(this.sha256(Util.decode(this.coinBase.data))));
+      console.log("hash1 = "+  mrklRoot);
       for (var i = 0; i < tabMerkelBranches.length; i++) {
-          mrklRoot = this.sha256(this.ba.unhexlify(this.sha256(mrklRoot + this.ba.unhexlify(tabMerkelBranches[i]))));
+          mrklRoot = this.sha256(Util.decode(this.sha256(Util.decode(mrklRoot) + Util.decode(tabMerkelBranches[i]))));
       }
-      this.header.merkelRoot = mrklRoot.toString('hex');
+      this.header.merkelRoot = mrklRoot;//.toString('hex');
   }
   this.makeTarget = function(difficulty) {
     var targetBase= "0x0000ffff00000000000000000000000000000000000000000000000000000000";
