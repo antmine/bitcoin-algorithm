@@ -25,6 +25,3 @@ while nonce < 0x100000000:
         print 'success'
         break
     nonce += 1
-
-
-# nounce : 856192328	hash : 0000000000000000e067a478024addfecdc93628978aa52d91fabd4292982a50
