@@ -4,8 +4,8 @@ if (typeof(Util) == 'undefined')
 Util = {
  returnString: function (str) {
     var res = "";
-    for (var i = 0; i < str.length; i += 2) {
-      res = str[i] + str[i + 1] + res;
+    for (var i = 0; i < str.length; i += 8) {
+      res = str.substr(i, 8)+ res;
     }
     return res;
   },

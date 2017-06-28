@@ -36,7 +36,6 @@ function CurrBlock() {
   }
   this.makeMerkelRoot = function(tabMerkelBranches) {
       var mrklRoot = this.sha256(Util.decode(this.sha256(Util.decode(this.coinBase.data))));
-      console.log("hash1 = "+  mrklRoot);
       for (var i = 0; i < tabMerkelBranches.length; i++) {
           mrklRoot = this.sha256(Util.decode(this.sha256(Util.decode(mrklRoot) + Util.decode(tabMerkelBranches[i]))));
       }
@@ -46,5 +45,12 @@ function CurrBlock() {
     var targetBase= "0x0000ffff00000000000000000000000000000000000000000000000000000000";
     this.target = eval("("+targetBase+"/"+difficulty+").toString(16)");
   }
+  this.isCleanJob = function(param){
+    console.log(param);
+    if (param) {
+      this.header.cleanJob = '000000800000000000000000000000000000000000000000000000000000000000000000000000000000000080020000';
+    }
+  }
+
   return this;
 }
