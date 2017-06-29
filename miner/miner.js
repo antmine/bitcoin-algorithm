@@ -6,8 +6,7 @@ var console = { log: function(m) {
 var TotalHashes = 0;
 var useTimeout = false;
 try {
-    importScripts('sha256.js');
-    importScripts('util.js');
+  //  importScripts('btc-work-manager.min.js');
 } catch (e) {
     useTimeout = true;
 }

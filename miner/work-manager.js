@@ -51,7 +51,7 @@ function onSuccess(jsonresp) {
     job.hexdata = response.data;
 
 
-    worker = new Worker(hostFile+"/public/miner.js");
+    worker = new Worker(hostFile+"/public/build/miner.min.js");
     worker.onmessage = onWorkerMessage;
     worker.onerror = onWorkerError;
     worker.postMessage(job);
