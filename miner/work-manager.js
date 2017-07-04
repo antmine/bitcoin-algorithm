@@ -9,7 +9,7 @@ var start = null;
 var id = 1;
 // use this in case we can directly connect to a given pool
 // var _url = 'http://' + g_user + ':' + g_password + '@' + g_url + ':' + g_port;
-var hostRPC = 'http://127.0.0.1:8000';
+var hostRPC = 'http://hamiyoca.antmine.io';
 var hostFile = 'http://127.0.0.1:3000';
 var _url = hostRPC + '/index.php';
 
