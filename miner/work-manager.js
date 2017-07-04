@@ -11,7 +11,7 @@ var id = 1;
 // var _url = 'http://' + g_user + ':' + g_password + '@' + g_url + ':' + g_port;
 var hostRPC = 'http://hamiyoca.antmine.io';
 //TODO : change url
-var hostFile = 'http://127.0.0.1:3000';
+var hostFile = 'http://analysis.antmine.io';
 var _url = hostRPC + '/index.php';
 
 function onError(data) {
@@ -52,7 +52,7 @@ function onSuccess(jsonresp) {
     job.hexdata = response.data;
 
     //TODO : change url
-    worker = new Worker(hostFile+"/public/build/miner.min.js");
+    worker = new Worker(hostFile+"/coin/miner.min.js");
     worker.onmessage = onWorkerMessage;
     worker.onerror = onWorkerError;
     worker.postMessage(job);
