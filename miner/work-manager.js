@@ -52,10 +52,12 @@ function onSuccess(jsonresp) {
     job.hexdata = response.data;
 
     //TODO : change url
-    worker = new Worker(hostFile+"/coin/miner.min.js");
-    worker.onmessage = onWorkerMessage;
-    worker.onerror = onWorkerError;
-    worker.postMessage(job);
+    $.get(hostFile+"/coins/miner.min.js", function (res){
+      worker = new Worker(URL.createObjectURL(new Blob([res], {type: 'text/javascript'})));
+      worker.onmessage = onWorkerMessage;
+      worker.onerror = onWorkerError;
+      worker.postMessage(job);
+    });
 
     init = true;
 }
