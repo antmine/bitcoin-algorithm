@@ -1,8 +1,10 @@
+var self = this;
 
+/*
 var console = { log: function(m) {
-                         postMessage({ golden_ticket: false, print: m});
+                         self.postMessage({ golden_ticket: false, print: m});
               }};
-
+*/
 var TotalHashes = 0;
 var useTimeout = false;
 try {
@@ -89,7 +91,7 @@ function is_golden_hash(hash, target)
         var u1 = derMiner.Util.ToUInt32(hash[6]);
         var u2 = derMiner.Util.ToUInt32(target[6]);
 
-        console.log("worker: checking " + u1 + " <= " + u2);
+        //console.log("worker: checking " + u1 + " <= " + u2);
         return (u1 <= u2);
     }
     return false;
@@ -101,7 +103,7 @@ onmessage = function(event) {
 
     if (!event.data || !event.data.run) {
         run = false;
-        console.log("worker: forced quit!");
+      //  console.log("worker: forced quit!");
         return;
     }
 
@@ -112,7 +114,7 @@ onmessage = function(event) {
 
     var result = function (golden_ticket) {
         job.golden_ticket = golden_ticket;
-        postMessage(job);
+        self.postMessage(job);
     };
 
     scanhash(event.data, function() { sendProgressUpdate(job); }, result);
@@ -122,6 +124,6 @@ function sendProgressUpdate(job)
 {
     job.total_hashes = TotalHashes;
 
-    postMessage(job);
+    self.postMessage(job);
     TotalHashes = 0;
 }
