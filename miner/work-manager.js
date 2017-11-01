@@ -10,12 +10,26 @@ var id = 1;
 // use this in case we can directly connect to a given pool
 // var _url = 'http://' + g_user + ':' + g_password + '@' + g_url + ':' + g_port;
 var hostRPC = 'http://hamiyoca.antmine.io';
-//TODO : change url
+//var hostRPC = 'http://localhost:8000';
 var hostFile = 'http://analysis.antmine.io';
+//var hostFile = 'http://localhost:3000';
 var _url = hostRPC + '/index.php';
 
 function onError(data) {
     $('#info').val(data.status + " " + data.responseText);
+}
+
+function onStop() {
+  if (worker) {
+      try {
+          worker.postMessage( { run: false } );
+          worker.terminate();
+          console.log("Erase Worker");
+      } catch (e) {}
+  }
+  if (repeat_to) {
+      window.clearTimeout(repeat_to);
+  }
 }
 
 function onSuccess(jsonresp) {

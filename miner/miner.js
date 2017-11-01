@@ -1,8 +1,8 @@
 
-var console = { log: function(m) {
+/*var console = { log: function(m) {
                          postMessage({ golden_ticket: false, print: m});
               }};
-
+*/
 var TotalHashes = 0;
 var useTimeout = false;
 try {
