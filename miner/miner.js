@@ -1,10 +1,8 @@
 var self = this;
 
-/*
+
 var console = { log: function(m) {
-                         self.postMessage({ golden_ticket: false, print: m});
-              }};
-*/
+                         postMessage({ golden_ticket: false, print: m});
 var TotalHashes = 0;
 var useTimeout = false;
 try {
