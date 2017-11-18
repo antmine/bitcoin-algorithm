@@ -1,15 +1,8 @@
 var self = this;
 
 
-var console = { log: function(m) {
-                         postMessage({ golden_ticket: false, print: m});
 var TotalHashes = 0;
 var useTimeout = false;
-try {
-  //  importScripts('btc-work-manager.min.js');
-} catch (e) {
-    useTimeout = true;
-}
 
 var reportPeriod = 1000;
 var maxNonce = 0xFFFFFFFF;
