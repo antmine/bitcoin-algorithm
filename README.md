@@ -1,8 +1,8 @@
-# hamiyoca - Hash me if you can
+# bitcoin-algorithm
+
+This algorithm is called by [the mini-software](https://github.com/mini-software) when the user is ready to mining bitcoin.
 
 ## Getting Started
-
-Just clone the repo, `cd` into it and use PHP's internal server.
 
 `
 cd server/
@@ -22,3 +22,5 @@ begin_mining()
 
 
 ```
+## Code base
+The projet is base on "[hamiyoca](https://github.com/derjanb/hamiyoca) - Hash me if you can"
